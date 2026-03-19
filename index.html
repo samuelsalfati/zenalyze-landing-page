@@ -116,11 +116,11 @@ nav.scrolled{background:rgba(3,5,12,0.9);backdrop-filter:blur(20px);border-botto
 .beta-h{font-size:clamp(28px,5vw,50px);font-weight:800;letter-spacing:-.03em;line-height:1.06;margin-bottom:12px}
 .beta-h span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .beta-p{font-size:14px;color:var(--muted);margin-bottom:34px;font-weight:300;line-height:1.75}
-.beta-form{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:18px;padding:30px 28px}
+.beta-form{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:30px 28px}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.fi{background:rgba(255,255,255,.055);border:1px solid var(--border);border-radius:9px;padding:12px 14px;font-size:12.5px;color:var(--text);font-family:'Sora',sans-serif;outline:none;transition:border-color .2s;width:100%}
-.fi::placeholder{color:var(--dim)}
-.fi:focus{border-color:rgba(0,212,170,.4)}
+.fi{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:9px;padding:12px 14px;font-size:12.5px;color:#ffffff;font-family:'Sora',sans-serif;outline:none;transition:border-color .2s,background .2s;width:100%}
+.fi::placeholder{color:rgba(255,255,255,.45)}
+.fi:focus{border-color:rgba(0,212,170,.6);background:rgba(255,255,255,.11)}
 .th-tog{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);cursor:pointer;margin-bottom:16px;user-select:none}
 .chk{width:15px;height:15px;border-radius:4px;border:1px solid var(--border);background:rgba(255,255,255,.04);flex-shrink:0;transition:all .2s}
 .chk.on{background:var(--purple);border-color:var(--purple)}
@@ -296,8 +296,9 @@ footer{padding:24px 44px;border-top:1px solid var(--border);display:flex;justify
       <div class="beta-form">
         <div class="frow">
           <input class="fi" type="text" placeholder="First name" id="f-first">
-          <input class="fi" type="email" placeholder="Email address" id="f-email">
+          <input class="fi" type="text" placeholder="Last name" id="f-last">
         </div>
+        <input class="fi" type="email" placeholder="Email address" id="f-email" style="margin-bottom:10px;display:block">
         <div class="th-tog" onclick="toggleTh()"><div class="chk" id="th-chk"></div><span>I'm a therapist or mental health professional</span></div>
         <button class="btn-sub" onclick="handleBeta()">Join the Waitlist →</button>
         <div class="form-note">No spam. One email when your spot is ready.</div>
@@ -886,6 +887,7 @@ var isT=false;
 function toggleTh(){isT=!isT;document.getElementById('th-chk').classList.toggle('on',isT);}
 function handleBeta(){
   var n=document.getElementById('f-first').value.trim();
+  var ln=document.getElementById('f-last').value.trim();
   var e=document.getElementById('f-email').value.trim();
   if(!e||!e.includes('@')){document.getElementById('f-email').style.borderColor='rgba(255,80,80,.5)';return;}
   document.getElementById('ok-name').textContent=n||'friend';
@@ -894,7 +896,7 @@ function handleBeta(){
   var mc=document.createElement('form');
   mc.action='https://gmail.us20.list-manage.com/subscribe/post?u=67cae8e0aabb237cf0ec17e23&id=23bf88efbd&f_id=00da4fe0f0';
   mc.method='POST';mc.target='_blank';mc.style.display='none';
-  [{name:'EMAIL',val:e},{name:'FNAME',val:n},{name:'MMERGE6',val:isT?'Therapist':'User'},{name:'b_67cae8e0aabb237cf0ec17e23_23bf88efbd',val:''}]
+  [{name:'EMAIL',val:e},{name:'FNAME',val:n},{name:'LNAME',val:ln},{name:'MMERGE6',val:isT?'Therapist':'User'},{name:'b_67cae8e0aabb237cf0ec17e23_23bf88efbd',val:''}]
   .forEach(function(f){var i=document.createElement('input');i.type='hidden';i.name=f.name;i.value=f.val;mc.appendChild(i);});
   document.body.appendChild(mc);mc.submit();document.body.removeChild(mc);
 }
